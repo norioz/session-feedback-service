@@ -4,13 +4,13 @@ const { v4: uuidv4 } = require("uuid");
 require("../types/FeedbackRecord");
 
 // --------
-// FeedbackRecord In-memory store
+// In-memory Store
 // --------
 
 var FEEDBACK_RECORDS = [];
 
 // --------
-// FeedbackRecord CRUD
+// CRUD
 // --------
 
 /**
@@ -18,6 +18,8 @@ var FEEDBACK_RECORDS = [];
  * @return Array<FeedbackRecord> - the list of records
  */
 var list = function () {
+  // Return an array copy for idempotency, in case we want the storage order to be specified.
+  // WARNING This doesn't protect from the records themselves being modified.
   return [...FEEDBACK_RECORDS];
 };
 
@@ -54,7 +56,8 @@ var create = function (userId, gameId, playSessionId, rating, comment) {
     playSessionId,
     uuidv4(),
     rating,
-    comment
+    comment,
+    Date.now()
   );
   FEEDBACK_RECORDS.push(feedbackRecord);
   return feedbackRecord;
