@@ -13,7 +13,8 @@ router.get("/", function (req, res, next) {
 
 /**
  * POST FeedbackRecord
- * Creates a new feedback record.
+ * Creates a new FeedbackRecord.
+ * The JSON representing the FeedbackRecord is returned in the response payload.
  */
 router.post("/", function (req, res, next) {
   const { userId, gameId, playSessionId, rating, comment } = req.body;
