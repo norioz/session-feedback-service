@@ -27,6 +27,10 @@
           value: "rating"
         },
         {
+          text: "Date / Time",
+          value: "creationDate"
+        },
+        {
           text: "User",
           value: "userId"
         },
@@ -36,23 +40,35 @@
         },
         {
           text: "Play Session",
-          value: "playSessionId"
+          value: "playSessionId",
+          sortable: false
         },
         {
           text: "Comment",
-          value: "comment"
+          value: "comment",
+          sortable: false
         },
       ],
       reviews: []
     }),
+    methods: {
+      // Requests a list of reviews from the server.
+      // Once update has been called, it refreshes automatically.
+      update() {
+        var self = this;
+        Vue.axios({
+          method: "get",
+          url: "http://localhost:3000/feedback"
+        }).then(function (response) {
+          self.reviews = JSON.parse(response.data);
+          setTimeout(() => {
+            self.update();
+          }, 5000);
+        });
+      }
+    },
     created() {
-      var self = this;
-      Vue.axios({
-        method: "get",
-        url: "http://localhost:3000/feedback"
-      }).then(function (response) {
-        self.reviews = JSON.parse(response.data);
-      });
+      this.update();
     }
   }
 </script>
