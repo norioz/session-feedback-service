@@ -8,7 +8,11 @@
           :items="reviews"
           item-key="name"
           class="elevation-1"
-        />
+        >
+          <template v-slot:item.creationDate="{ item }">
+            {{ new Date(item.creationDate).toString() }}
+          </template>
+        </v-data-table>
       </v-col>
     </v-row>
   </v-container>
