@@ -80,12 +80,13 @@
 
 <script>
   import Vue from "vue";
+  import { v4 as uuidv4 } from "uuid";
   export default {
     name: 'Feedback',
     data: () => ({
       gameId: "client-test-game-id",
       userId: "client-test-game-user-id",
-      playSessionId: "playSessionId",
+      playSessionId: uuidv4(),
       rating: 1,
       comment: ""
     }),
@@ -103,6 +104,15 @@
           }
         })
       }
+    },
+    created: function () {
+      const url = new URL(location.href);
+      const userId = url.searchParams.get('user');
+      const gameId = url.searchParams.get('game');
+      const playSessionId = url.searchParams.get('session');
+      if (userId) this.userId = userId;
+      if (gameId) this.gameId = gameId;
+      if (playSessionId) this.playSessionId = playSessionId;
     }
   }
 </script>
