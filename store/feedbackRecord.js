@@ -31,7 +31,7 @@ var list = function () {
  * @return FeedbackRecord | null - the FeedbackRecord that matches the params or null if none was found.
  */
 var find = function (userId, gameId, playSessionId) {
-  for (var feedbackRecord in FEEDBACK_RECORDS) {
+  for (var feedbackRecord of FEEDBACK_RECORDS) {
     if (
       feedbackRecord.userId === userId &&
       feedbackRecord.gameId === gameId &&
@@ -85,12 +85,20 @@ var create = function (userId, gameId, playSessionId, rating, comment) {
   return feedbackRecord;
 };
 
+/**
+ * Removes all FeedbackRecords from the store.
+ */
+var clear = function () {
+  FEEDBACK_RECORDS = [];
+};
+
 // ----------
 // MODULE
 // ----------
 
 module.exports = {
   create: create,
-  read: find,
+  find: find,
   list: list,
+  clear: clear,
 };
