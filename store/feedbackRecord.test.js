@@ -1,5 +1,11 @@
 const feedbackRecord = require("./feedbackRecord");
 
+describe("when finding a FeedbackRecord for a user", () => {
+  test("a record is returned if userId, gameId, and playSessionId match", () => {});
+  test("nothing is returned if gameId is different", () => {});
+  test("nothing is returned if playSessionId is different", () => {});
+});
+
 describe("when fetching all FeedbackRecords", () => {
   test("all records are returned", () => {});
 });

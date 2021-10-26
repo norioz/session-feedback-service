@@ -24,13 +24,19 @@ var list = function () {
 };
 
 /**
- * Fetches a FeedbackRecord with the given recordId.
- * @param recordId:ID The ID of a record to fetch.
- * @return FeedbackRecord | null - the FeedbackRecord that matches the recordId or null if none was found.
+ * Fetches a FeedbackRecord with the given userId, gameId, and playSessionId.
+ * @param userId:ID - ID of a user that submitted feedback.
+ * @param gameId:ID - ID of a game.
+ * @param playSessionId:ID - ID of a playSession that the user submitted feedback for.
+ * @return FeedbackRecord | null - the FeedbackRecord that matches the params or null if none was found.
  */
-var read = function (recordId) {
+var find = function (userId, gameId, playSessionId) {
   for (var feedbackRecord in FEEDBACK_RECORDS) {
-    if (feedbackRecord.recordId === recordId) {
+    if (
+      feedbackRecord.userId === userId &&
+      feedbackRecord.gameId === gameId &&
+      feedbackRecord.playSessionId === playSessionId
+    ) {
       return feedbackRecord;
     }
   }
@@ -47,9 +53,25 @@ var read = function (recordId) {
  * @return FeedbackRecord - the created record
  */
 var create = function (userId, gameId, playSessionId, rating, comment) {
-  // TODO (Brett) null checks
-  // TODO (Brett) rating must be a number between 1 and 5
-  // TODO (Brett) check to see if the userId + gameId + playSessionId has been used.
+  if (!userId) throw new Error("userId required to create FeedbackRecord");
+  if (!gameId) throw new Error("gameId required to create FeedbackRecord");
+  if (!playSessionId)
+    throw new Error("playSessionId required to create FeedbackRecord");
+  if (!rating) throw new Error("rating required to create FeedbackRecord");
+  if (typeof rating !== "number") throw new Error("rating must be a number");
+  if (rating < 1 || rating > 5)
+    throw new Error("rating must be between 1 and 5");
+  if (comment === null)
+    throw new Error(
+      "comment is required to create a FeedbackRecord but may be empty"
+    );
+  if (typeof comment !== "string") throw new Error("comment must be a string");
+  // check that no FeedbackRecord exists for this userId + gameId + playSessionId.
+  const record = find(userId, gameId, playSessionId);
+  if (record !== null)
+    throw new Error(
+      `the user (${userId}) has already submitted feedback for the playSession (${playSessionId})`
+    );
   var feedbackRecord = new FeedbackRecord(
     userId,
     gameId,
@@ -69,6 +91,6 @@ var create = function (userId, gameId, playSessionId, rating, comment) {
 
 module.exports = {
   create: create,
-  read: read,
+  read: find,
   list: list,
 };
