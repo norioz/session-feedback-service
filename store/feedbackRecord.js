@@ -59,8 +59,8 @@ var create = function (userId, gameId, playSessionId, rating, comment) {
     throw new Error("playSessionId required to create FeedbackRecord");
   if (!rating) throw new Error("rating required to create FeedbackRecord");
   if (typeof rating !== "number") throw new Error("rating must be a number");
-  if (rating < 1 || rating > 5)
-    throw new Error("rating must be between 1 and 5");
+  if (rating < 1 || rating > 5 || !Number.isInteger(rating))
+    throw new Error("rating must be an integer between 1 and 5");
   if (comment === null)
     throw new Error(
       "comment is required to create a FeedbackRecord but may be empty"
