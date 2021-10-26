@@ -37,14 +37,41 @@
           align="center"
           justify="center"
         >
-          <v-btn
-            @click="submit"
-            color="primary"
-            elevation="2"
-            large
+          <v-dialog
+            transition="dialog-bottom-transition"
+            persistent
+            max-width="600"
           >
-            Submit
-          </v-btn>
+            <template v-slot:activator="{ on, attrs }">
+              <v-btn
+                @click="submit"
+                color="primary"
+                elevation="2"
+                large
+                v-on="on"
+                v-bind="attrs"
+              >
+                Submit
+              </v-btn>
+            </template>
+            <template v-slot:default>
+              <v-card>
+                <v-toolbar
+                  color="primary"
+                  dark
+                >Test Game</v-toolbar>
+                <v-card-text>
+                  <v-col
+                    align="center"
+                    justify="center"
+                  >
+                    <div class="text-h2 pa-12">Thank you for your feedback!</div>
+                    <div>[DEBUG] Reload the page to submit again.</div>
+                  </v-col>
+                </v-card-text>
+              </v-card>
+            </template>
+          </v-dialog>
         </v-row>
       </v-col>
     </v-row>
@@ -60,7 +87,7 @@
       userId: "client-test-game-user-id",
       playSessionId: "playSessionId",
       rating: 1,
-      comment: "The Woodman set to work at once, and so sharp was his axe that the tree was soon chopped nearly through."
+      comment: ""
     }),
     methods: {
       submit: function() {
