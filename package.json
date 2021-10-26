@@ -3,7 +3,8 @@
   "version": "0.0.0",
   "private": true,
   "scripts": {
-    "start": "nodemon ./bin/www -e ejs,js,css,html,jpg,png,scss",
+    "start": "node ./bin/www",
+    "dev": "nodemon ./bin/www -e ejs,js,css,html,jpg,png,scss",
     "test": "jest"
   },
   "dependencies": {
