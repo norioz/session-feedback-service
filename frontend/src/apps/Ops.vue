@@ -34,20 +34,18 @@
       </v-btn>
     </v-app-bar>
     <v-main>
-      <v-row>
-        Ops
-      </v-row>
+      <Ops />
     </v-main>
   </v-app>
 </template>
 
 <script>
-// import Feedback from './components/Feedback';
+import Ops from "@/components/Ops";
 
 export default {
   name: 'OpsApp',
   components: {
-    // Feedback,
+    Ops,
   },
   data: () => ({
     //
