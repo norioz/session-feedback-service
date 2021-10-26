@@ -1,28 +1,54 @@
 <template>
-  <div id="app">
-    <img alt="Vue logo" src="./assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
-  </div>
+  <v-app>
+    <v-app-bar
+      app
+      color="primary"
+      dark
+    >
+      <div class="d-flex align-center">
+        <v-img
+          alt="Game Logo"
+          class="shrink mr-2"
+          contain
+          :src="require('./assets/test-game-logo.png')"
+          transition="scale-transition"
+          width="40"
+        />
+        <v-img
+          alt="Game Name"
+          class="shrink mt-1 hidden-sm-and-down"
+          contain
+          min-width="100"
+          :src="require('./assets/test-game-name-dark.png')"
+          width="100"
+        />
+      </div>
+      <v-spacer></v-spacer>
+      <v-btn
+        href="https://unity.com"
+        target="_blank"
+        text
+      >
+        <span class="mr-2">Hosted by Unity</span>
+        <v-icon>mdi-open-in-new</v-icon>
+      </v-btn>
+    </v-app-bar>
+    <v-main>
+      <Feedback/>
+    </v-main>
+  </v-app>
 </template>
 
 <script>
-import HelloWorld from './components/HelloWorld.vue'
+import Feedback from './components/Feedback';
 
 export default {
   name: 'App',
   components: {
-    HelloWorld
-  }
-}
+    Feedback,
+  },
+  data: () => ({
+    //
+  }),
+};
 </script>
-
-<style>
-#app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
-  margin-top: 60px;
-}
-</style>
