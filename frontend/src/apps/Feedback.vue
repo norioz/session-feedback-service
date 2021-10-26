@@ -10,7 +10,7 @@
           alt="Game Logo"
           class="shrink mr-2"
           contain
-          :src="require('./assets/test-game-logo.png')"
+          :src="require('@/assets/test-game-logo.png')"
           transition="scale-transition"
           width="40"
         />
@@ -19,7 +19,7 @@
           class="shrink mt-1 hidden-sm-and-down"
           contain
           min-width="100"
-          :src="require('./assets/test-game-name-dark.png')"
+          :src="require('@/assets/test-game-name-dark.png')"
           width="100"
         />
       </div>
@@ -40,10 +40,10 @@
 </template>
 
 <script>
-import Feedback from './components/Feedback';
+import Feedback from '@/components/Feedback';
 
 export default {
-  name: 'App',
+  name: 'FeedbackApp',
   components: {
     Feedback,
   },
